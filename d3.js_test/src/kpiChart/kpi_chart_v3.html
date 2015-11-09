@@ -1,0 +1,363 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>kpiDemo V3</title>
+    <script type="text/javascript" src="..\..\js\lib\d3.min.js"></script>
+    <script type="text/javascript" src="..\..\js\kpiChart\kpiChartV1.js"></script>
+    <script type="text/javascript" src="..\..\js\lib\jquery.js"></script>
+</head>
+
+<style>
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+    }
+
+    .kpiRect {
+        fill: url(#svg_gradient_num72);
+        stroke: none;
+        stroke-width: 0px;
+        opacity: 1;
+        fill-opacity: 0.8;
+    }
+
+    .kpiTap{
+            border: 1px solid #b5bcc7;
+            padding: 3px 6px;
+            /*background-image: url(layout/images/tabTop.png);*/
+            background-position: 0 0;
+            background-repeat: repeat-x;
+            min-width: 60px;
+            text-align: center;
+            float: left;
+            cursor: pointer;
+        }
+
+</style>
+
+<body>
+<table cellspacing="0" cellpadding="0" class="pdfIgnore">
+        <tbody>
+            <td style="width:270px; vertical-align:top;" class="pdfInvisible">
+                <div style="width:270px; vertical-align:top; height: 550px; overflow-y: auto;">
+                    <table id="result_table" style="width: 100%; border: 0px solid #9f9f9f;" cellspacing="0">
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">1</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">CDW Corporation</span>
+                                <br>
+                                Size: 12,075 M$
+                                <br>
+                                Total Score: <b>33</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2535" id="companyCheck0" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">2</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">SYNNEX Corp.</span>
+                                <br>
+                                Size: 13,840 M$
+                                <br>
+                                Total Score: <b>32</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2274" id="companyCheck1" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">3</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Anixter International Inc.</span>
+                                <br>
+                                Size: 6,446 M$
+                                <br>
+                                Total Score:
+                                <b>27</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4028" id="companyCheck2" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">4</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Insight Enterprises Inc.</span>
+                                <br>
+                                Size: 5,316 M$
+                                <br>
+                                Total Score:
+                                <b>26</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4641" id="companyCheck3" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">5</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Datatec Limited</span>
+                                <br>
+                                Size: 5,688 M$
+                                <br>
+                                Total Score:
+                                <b>23</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4421" id="companyCheck4" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNewHighlight" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">6</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Cisco International Limited</span>
+                                <br>
+                                Size: 7,980 M$
+                                <br>
+                                Total Score:
+                                <b>21</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID3467" id="companyCheck5" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">7</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">VST Holdings Ltd.</span>
+                                <br>
+                                Size: 5,405 M$
+                                <br>
+                                Total Score:
+                                <b>20</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4594" id="companyCheck6" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">8</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">ALSO Holding AG</span>
+                                <br>
+                                Size: 8,251 M$
+                                <br>
+                                Total Score:
+                                <b>19</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID3373" id="companyCheck7" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">9</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Synnex Technology International Corp.</span>
+                                <br>
+                                Size: 10,498 M$
+                                <br>
+                                Total Score:
+                                <b>17</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2824" id="companyCheck8" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">10</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">WPG Holdings Limited</span>
+                                <br>
+                                Size: 14,463 M$
+                                <br>
+                                Total Score:
+                                <b>16</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2180" id="companyCheck9" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">11</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Daiwabo Holdings Co., Ltd.</span>
+                                <br>
+                                Size: 6,260 M$
+                                <br>
+                                Total Score:
+                                <b>16</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4115" id="companyCheck10" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">12</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Digital China Holdings Limited</span>
+                                <br>
+                                Size: 8,818 M$
+                                <br>
+                                Total Score:
+                                <b>14</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID3222" id="companyCheck11" type="checkbox" data-role="none"  style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td>
+                <table style="height:100%; width:100%;margin-bottom: 60px;" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td>
+                               <div>
+                                  <div style="height:65px" class="kpiTap" data-tapName="AssetEfficiency">
+                                     <img src="../../img/kpiChart/b_asset_efficiency.png" border="0" height="40" haslocalurl="DONE"><br><b>Asset Efficiency</b>
+                                  </div>
+                                  <div style="height:65px" class="kpiTap" data-tapName="CashDebtMgmnt">
+                                     <img src="../../img/kpiChart/b_cash_management.png" border="0" height="40" haslocalurl="DONE"><br><b>Cash&Debt Mgmnt</b>
+                                   </div>
+                                   <div style="height:65px" class="kpiTap" data-tapName="CostMgmnt">
+                                     <img src="../../img/kpiChart/b_cost_management.png" border="0" height="40" haslocalurl="DONE"><br><b>Cost Mgmnt</b>
+                                   </div>
+                                   <div style="height:65px" class="kpiTap" data-tapName="Profitability">
+                                     <img src="../../img/kpiChart/b_profitability.png" border="0" height="40" haslocalurl="DONE"><br><b>Profitability</b>
+                                   </div>
+                                   <div style="height:65px" class="kpiTap" data-tapName="SizeAndGrowth">
+                                     <img src="../../img/kpiChart/b_size_and_growth.png" border="0" height="40" haslocalurl="DONE"><br><b>Size and Growth</b>
+                                   </div>
+                               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="kpiChartDiv"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tbody>
+    </table>
+<!-- <center>
+    <div id="kpiChartLegendDivV2" style="height: 40px;">
+        <div id="MyLegend" width="100%" height="100%">
+            <div style="text-align: center; width: 100%;">
+                <div width="99%" height="99%" style="margin: 0px auto;">
+                   <span style="margin: 10px;">
+                        <div width="50" style="border: 2px solid black; padding: 5px; display:inline-block; width:8px; height:8px; background-color: #ee3d96;"></div>
+                        <div width="70%" style="padding: 5px; display:inline-block; height:12px;">
+                            <div style="display: table-cell; vertical-align: middle; height:100%;">
+                                <p style="height:99%; font-size:12px;">
+                                    <span>
+                                        <span class="pdf-v-legend" data-pdf-v-legend-color="#ee3d96">CDW Corporation</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</center> -->
+<script>
+    var responseJson={
+        AssetEfficiency:{
+            showSize:3,
+            xTickNameArr:['ROA (%)', 'FAU', 'GMROI'],
+            yArrStore:[[10,30,48],[30,8,6],[12,34,38],[25,23,13],[30,40,27]]
+        },
+        CashDebtMgmnt:{
+            showSize:5,
+            xTickNameArr:['FCF/Rev (%)', 'CAPEX Coverage', 'CF to Debt (%)','Cur.Ratio (%)','DIO(days)'],
+            yArrStore:[[10,20,30,40,10],[32,43,24,11,33],[58,24,15,52,44],[33,53,12,21,25],[32,41,21,54,12]]
+        },
+        CostMgmnt:{
+            showSize:3,
+            xTickNameArr:['Op. Exp.Margin (%)', 'COGS/Rev. (%)', 'SG&A/Rev. (%)'],
+            yArrStore:[[14,32,44],[44,22,19],[53,22,58],[53,12,42],[23,45,13]]
+        },
+        Profitability:{
+            showSize:4,
+            xTickNameArr:['GPMargin (%)', 'Op.Margin (%)', 'EBITDA Margin (%)','DOL'],
+            yArrStore:[[12,24,36,48],[33,43,26,17],[57,24,13,53],[43,45,41,32],[33,44,32,35]]
+        },
+        SizeAndGrowth:{
+            showSize:4,
+            xTickNameArr:['Tot. Rev. Growth (%)', 'Turnover ($M)', 'Employees','Rev./Employee ($M)'],
+            yArrStore:[[31,33,34,51],[53,34,32,41],[36,42,55,54],[33,41,52,55],[53,34,52,54]]
+        }
+    };
+
+    $(function(){
+        $("input[id^='companyCheck']").on('change',function(){
+            checkBoxEventHandle(this);
+        });
+        $('.kpiTap').on('click',function(){
+            tabEventHandle(this);
+        });
+
+        $('.kpiTap:first').click();
+    });
+
+
+    var checkBoxEventHandle=function(dom){
+        var id=$(dom).attr('id');
+        var num=id.substring(id.indexOf(id.length));
+        if(num>=5){
+            return;
+        }
+        var boo=$(dom).prop("checked");
+        if(boo){
+            kpiChart.addCompy(id);
+        }else{
+            kpiChart.removeCompy(id);
+        }
+    }
+
+    var tabEventHandle=function(dom){
+        var tapName=$(dom).attr('data-tapName');
+        var data=getTabKpiData(tapName);
+        if(!data){
+            return;
+        }
+        kpiChart.init(data);
+    }
+
+    var getTabKpiData=function(tabName){
+        for (var key in responseJson) {
+            if(key.indexOf(tabName)>-1){
+                return responseJson[key];
+            }
+        };
+        return null;
+    }
+
+    
+</script>
+</body>
+</html>

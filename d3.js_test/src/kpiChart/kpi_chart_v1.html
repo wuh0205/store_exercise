@@ -1,0 +1,235 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>kpiDemo V1</title>
+</head>
+
+<style>
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        /*font-family: sans-serif;*/
+        /*font-size: 11px;*/
+        font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+    }
+
+    .kpiRect {
+        fill: url(#svg_gradient_num72);
+        stroke: none;
+        stroke-width: 0px;
+        opacity: 1;
+        fill-opacity: 0.8;
+    }
+
+    .inner_line {
+        fill: none;
+        stroke:#E7E7E7;
+        shape-rendering: crispEdges;
+    }
+
+</style>
+
+<body>
+<script type="text/javascript" src="..\..\js\lib\d3.min.js"></script>
+<script>
+
+    //画布大小
+    var width = 720;
+    var height = 400;
+
+    //在 body 里添加一个 SVG 画布
+    var svg = d3.select("body")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    //画布周边的空白
+    var padding = {left: 150, right: 30, top: 50, bottom: 20};
+
+    //定义一个数组
+    var dataset = [6,6,6];
+
+    //x轴的比例尺
+    var xScale = d3.scale.ordinal()
+            .domain(d3.range(dataset.length))
+            .rangeRoundBands([0, width - padding.left - padding.right]);
+
+    //y轴的比例尺
+    var yScale = d3.scale.linear()
+            .domain([0, d3.max(dataset)])
+            .range([height - padding.top - padding.bottom, 0]);
+
+    //定义x轴
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .tickFormat('');
+
+    //定义y轴
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .tickFormat('')
+            .ticks(7)
+            .tickSize(4, 0);
+
+    //定义z轴
+    var zAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .tickFormat('');
+
+    //添加x轴
+    var xBar=svg.append("g")
+                .attr('id','axis_x')
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
+                .call(xAxis);
+
+    //添加y轴
+    var yBar=svg.append("g")
+                .attr('id','axis_y')
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                .call(yAxis);
+
+    //添加z轴
+    var zBar=svg.append("g")
+            .attr('id','axis_z')
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding.left + "," +  padding.top + ")")
+            .call(zAxis);
+
+    //处理z轴样式
+    var dArr=zBar.select('path').attr('d').split(',');
+    var d_2=dArr[1];
+    dArr[1]=d_2.substring(0,d_2.length-1)+'-'+d_2.substring(d_2.length-1);
+    zBar.select('path').attr('d',dArr.join(','));
+    zBar.selectAll('line')
+        .attr('y2','-'+zBar.select("line").attr('y2'));
+
+    //替换x,y,z轴刻度名
+    var xTickNameArr=['ROA (%)','FAU','GMROI'];
+    var yTickNameArr=['Underperformer','Median','Outperformer'];
+    xBar.selectAll("text")
+            .text(function(d,i){
+            return xTickNameArr[i];
+        });
+    yBar.selectAll("text")
+        .text(function(d,i){
+            switch(i){
+                case 1:
+                   return yTickNameArr[0];
+                case 3:
+                    return yTickNameArr[1];
+                case 5:
+                    return yTickNameArr[2];
+                default:
+                    return '';
+            }
+            return '';
+        });
+    zBar.selectAll("text")
+        .attr('dy', '0em')
+        .attr('y', '-'+ zBar.select("text").attr('y'))
+        .text(function(d,i){
+            return xTickNameArr[i];
+        });
+
+
+    //增加横向网格
+    yBar.selectAll('.tick')
+            .append("line")
+            .attr('x1', width - padding.left - padding.right)
+            .attr('style', function(d,i){
+                if(i==2||i==4){
+                    return 'fill: none; stroke: rgb(187, 187, 187); shape-rendering: crispEdges;';
+                }
+                return 'fill: none; stroke: rgb(0, 0, 0); shape-rendering: crispEdges;';
+            });
+
+
+    var rectPadding = 120;//矩形之间的空白
+    var rect_relative_h=5;
+    var rect_width=xScale.rangeBand() - rectPadding;
+    var rect_translate='translate(' + padding.left + ',' + (padding.top+rect_relative_h)+ ')';
+    //添加矩形元素
+    var rects = svg.selectAll(".kpiRect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("class", "kpiRect")
+            .attr("transform", rect_translate)
+            .attr("x", function (d, i) {
+                return xScale(i) + rectPadding / 2;
+            })
+            .attr("y", function (d) {
+                return yScale(d);
+            })
+            .attr("width", rect_width)
+            .attr("height", function (d) {
+                return height - padding.top - padding.bottom - yScale(d)-rect_relative_h;
+            });
+
+
+
+    //定义一个线性渐变
+    var stopArr = [{offset: '0%', stopColor: '#222'}, {offset: '5%', stopColor: '#222'}, {offset: '7%', stopColor: '#FF0000'}, {offset: '50%', stopColor: '#FFFF00'}, {offset: '95%', stopColor: '#00FF00'}];
+    var defs = svg.append("defs");
+    var linearGradient = defs.append("linearGradient")
+            .attr("id","svg_gradient_num72")
+            .attr("x1","0%")
+            .attr("y1","100%")
+            .attr("x2","0%")
+            .attr("y2","0%");
+     linearGradient.selectAll('stop')
+             .data(stopArr)
+             .enter()
+             .append("stop")
+             .attr("offset", function (d, i) {
+                 return d.offset;
+             })
+             .style('stop-color', function (d, i) {
+                 return d.stopColor;
+             });
+
+    //添加折线图
+    //添加折线
+    var yArr=[1,2,3];
+    var fillArr=['rgb(238, 61, 150)','rgb(0, 65, 102)'];
+    var circleCss='fill: '+fillArr[0]+';stroke: rgb(0, 0, 0);stroke-width: 2px;fill-opacity: 1;';
+    var pathCss='stroke: '+fillArr[0]+';stroke-width: 4px;fill: none;';
+    var line = d3.svg.line()
+            .x(function (d, i) {
+                return xScale(i) + rectPadding / 2+rect_width/2;
+            })
+            .y(function (d) {
+                return yScale(d);
+            });
+    var path = svg.append("path")
+            .attr("d", line(yArr))
+            .attr("transform", rect_translate)
+            .attr("style",pathCss);
+    //添加圆点
+    svg.selectAll("circle")
+            .data(yArr)
+            .enter()
+            .append("circle")
+            .attr("transform", rect_translate)
+            .attr("cx", function (d, i) {
+                return xScale(i) + rectPadding / 2+rect_width/2;
+            })
+            .attr("cy", function (d) {
+                return yScale(d);
+            })
+            .attr("r", 8)
+            .attr("style",circleCss);
+
+</script>
+</body>
+</html>

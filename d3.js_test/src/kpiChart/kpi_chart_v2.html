@@ -1,0 +1,482 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>kpiDemo V2</title>
+    <script type="text/javascript" src="..\..\js\lib\d3.min.js"></script>
+</head>
+
+<style>
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+
+    .axis text {
+        /*font-family: sans-serif;*/
+        /*font-size: 11px;*/
+        font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+    }
+
+    .kpiRect {
+        fill: url(#svg_gradient_num72);
+        stroke: none;
+        stroke-width: 0px;
+        opacity: 1;
+        fill-opacity: 0.8;
+    }
+
+    .kpiTap{
+            border: 1px solid #b5bcc7;
+            padding: 3px 6px;
+            background-image: url(layout/images/tabTop.png);
+            background-position: 0 0;
+            background-repeat: repeat-x;
+            min-width: 60px;
+            text-align: center;
+            float: left;
+            cursor: pointer;
+        }
+
+</style>
+
+<body>
+<table cellspacing="0" cellpadding="0" class="pdfIgnore">
+        <tbody>
+            <td style="width:270px; vertical-align:top;" class="pdfInvisible">
+                <div style="width:270px; vertical-align:top; height: 550px; overflow-y: auto;">
+                    <table id="result_table" style="width: 100%; border: 0px solid #9f9f9f;" cellspacing="0">
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">1</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">CDW Corporation</span>
+                                <br>
+                                Size: 12,075 M$
+                                <br>
+                                Total Score: <b>33</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2535" id="companyCheck0" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">2</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">SYNNEX Corp.</span>
+                                <br>
+                                Size: 13,840 M$
+                                <br>
+                                Total Score: <b>32</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2274" id="companyCheck1" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">3</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Anixter International Inc.</span>
+                                <br>
+                                Size: 6,446 M$
+                                <br>
+                                Total Score:
+                                <b>27</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4028" id="companyCheck2" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">4</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Insight Enterprises Inc.</span>
+                                <br>
+                                Size: 5,316 M$
+                                <br>
+                                Total Score:
+                                <b>26</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4641" id="companyCheck3" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">5</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Datatec Limited</span>
+                                <br>
+                                Size: 5,688 M$
+                                <br>
+                                Total Score:
+                                <b>23</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4421" id="companyCheck4" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNewHighlight" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">6</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Cisco International Limited</span>
+                                <br>
+                                Size: 7,980 M$
+                                <br>
+                                Total Score:
+                                <b>21</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID3467" id="companyCheck5" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">7</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">VST Holdings Ltd.</span>
+                                <br>
+                                Size: 5,405 M$
+                                <br>
+                                Total Score:
+                                <b>20</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4594" id="companyCheck6" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">8</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">ALSO Holding AG</span>
+                                <br>
+                                Size: 8,251 M$
+                                <br>
+                                Total Score:
+                                <b>19</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID3373" id="companyCheck7" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">9</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Synnex Technology International Corp.</span>
+                                <br>
+                                Size: 10,498 M$
+                                <br>
+                                Total Score:
+                                <b>17</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2824" id="companyCheck8" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">10</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">WPG Holdings Limited</span>
+                                <br>
+                                Size: 14,463 M$
+                                <br>
+                                Total Score:
+                                <b>16</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID2180" id="companyCheck9" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">11</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Daiwabo Holdings Co., Ltd.</span>
+                                <br>
+                                Size: 6,260 M$
+                                <br>
+                                Total Score:
+                                <b>16</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID4115" id="companyCheck10" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                        <tr class="companyListGroupRowNew" style="border-top: 1px solid #444;">
+                            <td style="width: 10%; padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span class="companyListGroupRowNewTXT" style="font-size: 15px; font-weight: bold; margin-left: 5px;" title="Scoring rank of the company">12</span>
+                            </td>
+                            <td class="companyListGroupRowNewTXT" style="padding-bottom:5px; padding-top:5px; border-top: 1px solid #444;">
+                                <span style="font-size:15px; font-weight:bold;">Digital China Holdings Limited</span>
+                                <br>
+                                Size: 8,818 M$
+                                <br>
+                                Total Score:
+                                <b>14</b>
+                            </td>
+                            <td style="text-align:right; padding-right:5px; border-top: 1px solid #444;">
+                                <input class="companyCheck cID3222" id="companyCheck11" type="checkbox" data-role="none" onchange="_animation_.on( function(){generate_kpi_chart(crystalReportArea);generate_report_bubble_chart();} );" style="width:15px; height:15px; cursor:pointer; margin:5px;" unchecked=""></td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+            <td>
+                <table style="height:100%; width:100%;margin-bottom: 60px;" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td>
+                               <div>
+                                  <div style="height:65px" class="kpiTap">
+                                     <img src="img/kpiChart/b_asset_efficiency.png" border="0" height="40" haslocalurl="DONE"><br><b>Asset Efficiency</b>
+                                  </div>
+                                  <div style="height:65px" class="kpiTap">
+                                     <img src="img/kpiChart/b_cash_management.png" border="0" height="40" haslocalurl="DONE"><br><b>Cash&Debt Mgmnt</b>
+                                   </div>
+                                   <div style="height:65px" class="kpiTap">
+                                     <img src="img/kpiChart/b_cost_management.png" border="0" height="40" haslocalurl="DONE"><br><b>Cost Mgmnt</b>
+                                   </div>
+                                   <div style="height:65px" class="kpiTap">
+                                     <img src="img/kpiChart/b_profitability.png" border="0" height="40" haslocalurl="DONE"><br><b>Profitability</b>
+                                   </div>
+                                   <div style="height:65px" class="kpiTap">
+                                     <img src="img/kpiChart/b_size_and_growth.png" border="0" height="40" haslocalurl="DONE"><br><b>Size and Growth</b>
+                                   </div>
+                               </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div id="kpiChartDiv"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tbody>
+    </table>
+<!-- <center>
+    <div id="kpiChartLegendDivV2" style="height: 40px;">
+        <div id="MyLegend" width="100%" height="100%">
+            <div style="text-align: center; width: 100%;">
+                <div width="99%" height="99%" style="margin: 0px auto;">
+                   <span style="margin: 10px;">
+                        <div width="50" style="border: 2px solid black; padding: 5px; display:inline-block; width:8px; height:8px; background-color: #ee3d96;"></div>
+                        <div width="70%" style="padding: 5px; display:inline-block; height:12px;">
+                            <div style="display: table-cell; vertical-align: middle; height:100%;">
+                                <p style="height:99%; font-size:12px;">
+                                    <span>
+                                        <span class="pdf-v-legend" data-pdf-v-legend-color="#ee3d96">CDW Corporation</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</center> -->
+<script>
+
+    //画布
+    var width = 760;
+    var height = 410;
+
+    var contentDiv = d3.select("#kpiChartDiv");
+    var svg = contentDiv.append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    //画布周边的空白
+    var padding = {left: 150, right: 30, top: 50, bottom: 20};
+
+    //定义一个数组
+    var dataset = [6,6,6];
+
+    //x轴的比例尺
+    var xScale = d3.scale.ordinal()
+            .domain(d3.range(dataset.length))
+            .rangeRoundBands([0, width - padding.left - padding.right]);
+
+    //y轴的比例尺
+    var yScale = d3.scale.linear()
+            .domain([0, d3.max(dataset)])
+            .range([height - padding.top - padding.bottom, 0]);
+
+    //定义x轴
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .tickFormat('');
+
+    //定义y轴
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left")
+            .tickFormat('')
+            .ticks(7)
+            .tickSize(4, 0);
+
+    //定义z轴
+    var zAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom")
+            .tickFormat('');
+
+    //添加x轴
+    var xBar=svg.append("g")
+                .attr('id','axis_x')
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding.left + "," + (height - padding.bottom) + ")")
+                .call(xAxis);
+
+    //添加y轴
+    var yBar=svg.append("g")
+                .attr('id','axis_y')
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding.left + "," + padding.top + ")")
+                .call(yAxis);
+
+    //添加z轴
+    var zBar=svg.append("g")
+            .attr('id','axis_z')
+            .attr("class", "axis")
+            .attr("transform", "translate(" + padding.left + "," +  padding.top + ")")
+            .call(zAxis);
+
+    //处理z轴样式
+    var dArr=zBar.select('path').attr('d').split(',');
+    var d_2=dArr[1];
+    dArr[1]=d_2.substring(0,d_2.length-1)+'-'+d_2.substring(d_2.length-1);
+    zBar.select('path').attr('d',dArr.join(','));
+    zBar.selectAll('line')
+        .attr('y2','-'+zBar.select("line").attr('y2'));
+
+    //替换x,y,z轴刻度名
+    var xTickNameArr=['ROA (%)','FAU','GMROI'];
+    var yTickNameArr=['Underperformer','Median','Outperformer'];
+    xBar.selectAll("text")
+            .text(function(d,i){
+            return xTickNameArr[i];
+        });
+    yBar.selectAll("text")
+        .text(function(d,i){
+            switch(i){
+                case 1:
+                   return yTickNameArr[0];
+                case 3:
+                    return yTickNameArr[1];
+                case 5:
+                    return yTickNameArr[2];
+                default:
+                    return '';
+            }
+            return '';
+        });
+    zBar.selectAll("text")
+        .attr('dy', '0em')
+        .attr('y', '-'+ zBar.select("text").attr('y'))
+        .text(function(d,i){
+            return xTickNameArr[i];
+        });
+
+
+    //增加横向网格
+    yBar.selectAll('.tick')
+            .append("line")
+            .attr('x1', width - padding.left - padding.right)
+            .attr('style', function(d,i){
+                if(i==2||i==4){
+                    return 'fill: none; stroke: rgb(187, 187, 187); shape-rendering: crispEdges;';
+                }
+                return 'fill: none; stroke: rgb(0, 0, 0); shape-rendering: crispEdges;';
+            });
+
+
+    var rectPadding = 140;//矩形之间的空白
+    var rect_relative_h=5;
+    var rect_width=xScale.rangeBand() - rectPadding;
+    var rect_translate='translate(' + padding.left + ',' + (padding.top+rect_relative_h)+ ')';
+    //添加矩形元素
+    var rects = svg.selectAll(".kpiRect")
+            .data(dataset)
+            .enter()
+            .append("rect")
+            .attr("class", "kpiRect")
+            .attr("transform", rect_translate)
+            .attr("x", function (d, i) {
+                return xScale(i) + rectPadding / 2;
+            })
+            .attr("y", function (d) {
+                return yScale(d);
+            })
+            .attr("width", rect_width)
+            .attr("height", function (d) {
+                return height - padding.top - padding.bottom - yScale(d)-rect_relative_h;
+            });
+
+
+
+    //定义一个线性渐变
+    var stopArr = [{offset: '0%', stopColor: '#222'}, {offset: '5%', stopColor: '#222'}, {offset: '7%', stopColor: '#FF0000'}, {offset: '50%', stopColor: '#FFFF00'}, {offset: '95%', stopColor: '#00FF00'}];
+    var defs = svg.append("defs");
+    var linearGradient = defs.append("linearGradient")
+            .attr("id","svg_gradient_num72")
+            .attr("x1","0%")
+            .attr("y1","100%")
+            .attr("x2","0%")
+            .attr("y2","0%");
+     linearGradient.selectAll('stop')
+             .data(stopArr)
+             .enter()
+             .append("stop")
+             .attr("offset", function (d, i) {
+                 return d.offset;
+             })
+             .style('stop-color', function (d, i) {
+                 return d.stopColor;
+             });
+
+    //添加折线图
+    //添加折线
+    var yArr=[1,2,3];
+    var fillArr=['rgb(238, 61, 150)','rgb(0, 65, 102)'];
+    var circleCss='fill: '+fillArr[0]+';stroke: rgb(0, 0, 0);stroke-width: 2px;fill-opacity: 1;';
+    var pathCss='stroke: '+fillArr[0]+';stroke-width: 4px;fill: none;';
+    var line = d3.svg.line()
+            .x(function (d, i) {
+                return xScale(i) + rectPadding / 2+rect_width/2;
+            })
+            .y(function (d) {
+                return yScale(d);
+            });
+    var path = svg.append("path")
+            .attr("d", line(yArr))
+            .attr("transform", rect_translate)
+            .attr("style",pathCss);
+    //添加圆点
+    svg.selectAll("circle")
+            .data(yArr)
+            .enter()
+            .append("circle")
+            .attr("transform", rect_translate)
+            .attr("cx", function (d, i) {
+                return xScale(i) + rectPadding / 2+rect_width/2;
+            })
+            .attr("cy", function (d) {
+                return yScale(d);
+            })
+            .attr("r", 8)
+            .attr("style",circleCss);
+
+</script>
+</body>
+</html>
