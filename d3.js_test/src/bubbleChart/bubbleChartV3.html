@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bubbleDemo V3</title>
+    <script type="text/javascript" src="..\..\js\lib\d3.min.js"></script>
+    <script type="text/javascript" src="..\..\js\lib\jquery.js"></script>
+    <style>
+        .axis path, .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+            font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+        }
+
+        .tipText {
+            font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+        }
+
+        .tipRect {
+            fill: rgba(255, 255, 255, 0.85098);
+            stroke-width: 1px;
+            stroke: silver;
+        }
+
+        .singleCircle {
+            fill: rgb(40, 174, 229);
+            stroke: rgb(17, 138, 193);
+            stroke-width: 2px;
+            fill-opacity: 1;
+        }
+
+        .singleCircleHover {
+            fill: rgb(130, 208, 246);
+            stroke: rgb(17, 138, 193);
+            stroke-width: 3px;
+            fill-opacity: 0.6;
+        }
+
+        .selectedCircle {
+            fill: rgb(254, 184, 19);
+            stroke: rgb(221, 115, 28);
+            stroke-width: 3px;
+            fill-opacity: 1;
+        }
+
+        .selectedCircleHover {
+            fill: rgb(130, 208, 246);
+            stroke: rgb(221, 115, 28);
+            stroke-width: 3px;
+            fill-opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div id="reportBubbleChartContainer"></div>
+<script>
+    //添加svg画布
+    var width = 1000;
+    var height = 1000;
+    var contentDiv = d3.select("#reportBubbleChartContainer");
+    var svg = contentDiv.append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    //造数据
+    var dataset = [];
+    var boxTitleArr = ['Digital China Holdings Limited', 'Anixter International Inc.', 'Best Buy Europe Distributions Limited', 'Daiwabo Holdings Co., Ltd.', 'VST Holdings Ltd.', 'CDW Corporation', 'Synnex Technology International Corp.','Test Tip TestTest Tip Test Tip TestTest TipTip Test Tip'];
+    var boxSizeArr = ['8,818', '6,446', '5,298', '6,260', '5,405', '12,075', '10,498','1,11111'];
+    for (var i = 0; i < 10; i++) {
+        dataset.push({
+            x: Math.random() * 100,
+            y: Math.random() * 100,
+            boxTitle: boxTitleArr[i] ? boxTitleArr[i] : 'Test Test',
+            size: boxSizeArr[i] ? boxSizeArr[i] : '11,111'
+        });
+    }
+
+    var padding_left = 150;
+    var padding_top = 70;
+    var x_range_max = 600;
+    var y_range_max = 400;
+
+    // 比例尺
+    var xScale = d3.scale.linear()
+            .domain([0, 110])
+            .range([0, x_range_max]);
+
+    var yScale = d3.scale.linear()
+            .domain([110, 0])
+            .range([0, y_range_max]);
+    // 坐标轴
+    var xAxis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+    var gxAxis = svg.append("g")
+            .attr("class", "axis_x axis")
+            .attr("transform", "translate(" + padding_left + "," + (padding_top + y_range_max) + ")")
+            .call(xAxis);
+
+    var yAxis = d3.svg.axis()
+            .scale(yScale)
+            .orient("left");
+    var gyAxis = svg.append("g")
+            .attr("class", "axis_y axis")
+            .attr("transform", "translate(" + padding_left + "," + padding_top + ")")
+            .call(yAxis);
+
+    // 散点
+    var pointCircles = svg.selectAll(".singleCircle")
+            .data(dataset)
+            .enter()
+            .append("circle")
+            .attr("class", "singleCircle")
+            .attr("flag-data", "0")
+            .attr("boxTile-data", function (d) {
+                return d.boxTitle
+            })
+            .attr("size-data", function (d) {
+                return d.size
+            })
+            .attr("transform", "translate(" + padding_left + "," + padding_top + ")")
+            .attr("r", 40)
+            .attr("cx", function (d) {
+                return xScale(d.x);
+            })
+            .attr("cy", function (d) {
+                return yScale(d.y);
+            });
+
+    var circle = svg.append("circle")
+            .attr("class", "selectedCircle")
+            .attr("flag-data", "0")
+            .attr("boxTile-data", boxTitleArr[0])
+            .attr("size-data", boxSizeArr[0])
+            .attr("transform", "translate(" + padding_left + "," + padding_top + ")")
+            .attr("r", 60)
+            .attr("cx", 520)
+            .attr("cy", 70);
+
+    //改变坐标系样式
+    svg.selectAll('text').text('');
+
+    svg.select('.axis_x').selectAll('.tick').append("line").attr('y2', '-400').attr('style', 'fill: none; stroke: rgb(187, 187, 187); shape-rendering: crispEdges;');
+    svg.select('.axis_y').selectAll('.tick').append("line").attr('x1', '600').attr('style', 'fill: none; stroke: rgb(187, 187, 187); shape-rendering: crispEdges;');
+
+
+    var tick_line_css = 'fill: none; stroke: black; shape-rendering: crispEdges;';
+    var x_tick_0 = $('.axis_x').find('g:eq(0)');
+    var x_tick_5 = $('.axis_x').find('g:eq(5)');
+    var x_tick_10 = $('.axis_x').find('g:eq(10)');
+    var y_tick_0 = $('.axis_y').find('g:eq(0)');
+    var y_tick_5 = $('.axis_y').find('g:eq(5)');
+    var y_tick_10 = $('.axis_y').find('g:eq(10)');
+
+    y_tick_0.find('line:last').attr('style', tick_line_css);
+    y_tick_5.find('line:last').attr('style', tick_line_css);
+    y_tick_10.find('line:last').attr('style', tick_line_css);
+
+    x_tick_5.find('line:last').attr('style', tick_line_css);
+    x_tick_10.find('line:last').attr('style', tick_line_css);
+
+    var scaleNameArr = ['Underperformer', 'Median', 'Outperformer'];
+    x_tick_0.find('text').text(scaleNameArr[0]);
+    x_tick_5.find('text').text(scaleNameArr[1]);
+    x_tick_10.find('text').text(scaleNameArr[2]);
+    y_tick_5.find('text').text(scaleNameArr[1]);
+    y_tick_10.find('text').text(scaleNameArr[2]);
+
+    var beforedDomStore = [];//
+
+    var box_width= 0,box_height=0;
+    /*
+     * 显示漂浮框
+     * */
+    var showContentBox = function (currentDom) {
+        if (setBoxShowOrHide(currentDom)) {
+            return;
+        }
+        var d3Dom = d3.select(currentDom);
+        var cx = parseFloat(d3Dom.attr('cx'));
+        var cy = parseFloat(d3Dom.attr('cy'));
+        var r = parseFloat(d3Dom.attr('r'));
+
+        var transform_str = x_tick_5.attr('transform');
+        var middle = transform_str.substring(transform_str.indexOf('(') + 1, transform_str.indexOf(','));
+
+        var stroke_width_range = 4;
+        var box_padding = 10;
+        var box_border = 1;
+        box_width = 200 + box_padding * 2 + box_border * 2;
+        box_height = 50 + box_padding * 2 + box_border * 2;
+        var ratio = 0.1;
+
+        var strArr = getBoxContentData(d3Dom);
+        //漂浮高度框默认为可显示3行的高度,如果内容超出3行,作自增处理
+        var lineHeight=23;
+        var lineSum=strArr.length;
+        if(lineSum>3){
+            box_height+=(lineSum-3)*lineHeight;
+        }
+
+        var xTipRect_start=cx-r;
+        var yTipRect_start=cy - box_height;
+        var xTipRect_end = cx - r + r * ratio;
+        var yTipRect_end = cy - box_height - r - stroke_width_range;
+        if (cx > middle) {
+            xTipRect_start=cx - box_width + r-r*ratio;
+            yTipRect_start=yTipRect_end +r;
+            xTipRect_end = cx - box_width + r-r*ratio;
+        }
+
+        var tip = svg.append("g")
+                .attr("id", "tip");
+
+        var tipRect = tip.append("rect")
+                .attr("x", xTipRect_start)
+                .attr("y", yTipRect_start)
+                .attr("width", box_width)
+                .attr("height", box_height)
+                .attr("class", "tipRect")
+                .attr("transform", "translate(" + padding_left + "," + padding_top + ")")
+                .transition()
+                .duration(100)
+                .ease("linear")
+                .attr("x",xTipRect_end)
+                .attr("y",yTipRect_end);
+
+        var tipText = tip.append("text")
+                .attr("x", xTipRect_start + 11)
+                .attr("y", yTipRect_start + 7)
+                .attr("class", "tipText")
+                .attr("transform", "translate(" + padding_left + "," + padding_top + ")");
+
+
+        tipText.selectAll("tspan")
+                .data(strArr)
+                .enter()
+                .append("tspan")
+                .attr("x", xTipRect_end + 11)
+                .attr("dy", function (d, i) {
+                    if (i == 0) {
+                        return '1em';
+                    }
+                    return '1.23em';
+                })
+                .attr('style', function (d, i) {
+                    if (i == strArr.length - 1) {
+                        return '';
+                    }
+                    return 'font-weight: bold;';
+                })
+                .text(function (d) {
+                    return d;
+                });
+
+        tipText.transition()
+                .duration(100)
+                .ease("linear")
+                .attr("x", xTipRect_end + 11)
+                .attr("y", yTipRect_end + 7);
+
+    }
+
+    /*
+     * 设置圆的状态
+     * */
+    var setBoxShowOrHide = function (currentDom) {
+        d3.select("#tip").remove();
+        var returnFlag = false;
+        var currentCircle = d3.select(currentDom);
+        var flag = currentCircle.attr('flag-data');
+        var className = currentCircle.attr('class');
+
+        restoreBeforeCircle();
+        if (flag == '0') {
+            currentCircle.attr('flag-data', '1');
+            if (className.indexOf('selectedCircle')>-1 ) {
+                currentCircle.attr('class', 'selectedCircleHover');
+            } else {
+                currentCircle.attr('class', 'singleCircleHover');
+            }
+
+            beforedDomStore.push(currentDom);
+            returnFlag = false;
+        } else {
+            currentCircle.attr('flag-data', '0');
+            returnFlag = true;
+        }
+        return returnFlag;
+    }
+
+    /*
+     * 还原已点击过的圆
+     * */
+    var restoreBeforeCircle = function () {
+        if (beforedDomStore.length > 0) {
+            var d3Dom = d3.select(beforedDomStore[0]);
+            var className = d3Dom.attr('class');
+            if (className.indexOf('selectedCircleHover')>-1) {
+                d3Dom.attr('class', 'selectedCircle');
+            } else {
+                d3Dom.attr('class', 'singleCircle');
+            }
+            d3Dom.attr('flag-data', '0');
+            beforedDomStore = [];
+        }
+    }
+
+    var lineMaxLength = 26;
+    /*
+     * 获取漂浮框显示内容
+     * */
+    var getBoxContentData = function (d3Dom) {
+        var titleArr = d3Dom.attr('boxTile-data').split(' ');
+        var size = d3Dom.attr('size-data');
+        var tspanArr = [];
+
+        //换行处理
+        var str, lastIndexOf, lastLineStr;
+        for (var i = 0; i < titleArr.length; i++) {
+            str = titleArr[i];
+            lastIndexOf = tspanArr.length - 1;
+            lastLineStr = tspanArr[lastIndexOf];
+            if (typeof lastLineStr != 'undefined') {
+                var newLineStr = lastLineStr + ' ' + str;
+                if (newLineStr.length <= lineMaxLength) {
+                    tspanArr[lastIndexOf] = newLineStr;
+                } else {
+                    createNewLine(str, tspanArr);
+                }
+                continue;
+            }
+            //处理第一个单词
+            createNewLine(str, tspanArr);
+        }
+        tspanArr.push('Size: ' + size + ' M$');
+        return tspanArr;
+    }
+
+    /*
+     * 创建新的一行
+     * */
+    var createNewLine = function (str, tspanArr) {
+        if (str.length <= lineMaxLength) {
+            tspanArr.push(str);
+        } else {
+            tspanArr = longWordHandle(str, tspanArr);
+        }
+    }
+
+    /*
+     * 单个单词过长处理
+     * */
+    var longWordHandle = function (str, tspanArr) {
+        var newMaxLength = lineMaxLength - 1;
+        var strLength = str.length;
+        if (strLength > newMaxLength) {
+            str = str.substring(0, newMaxLength);
+            tspanArr.push(str);
+            return longWordHandle(str, tspanArr, lineMaxLength);
+        }
+        tspanArr.push(str);
+        return tspanArr;
+    }
+
+    //添加事件
+    svg.selectAll("circle").on('click', function () {
+        showContentBox(this);
+    });
+
+    svg.on('click', function () {
+        if (d3.event.srcElement.nodeName == 'circle') {
+            return;
+        }
+        d3.select("#tip").remove();
+        restoreBeforeCircle();
+    });
+
+</script>
+</body>
+</html>
