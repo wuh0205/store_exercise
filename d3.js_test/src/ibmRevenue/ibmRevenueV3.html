@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>testDemo</title>
+    <script src="../../js/lib/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../../js/lib/d3.min.js"></script>
+    <link rel="stylesheet" href="../../css/ibmRevenue/detaileRevenueV3.css">
+    <script src="../../js/d3StackedBar/d3.core.js" charset="utf-8"></script>
+    <script src="../../js/ibmRevenue/ibmRevenueBarV4.js"></script>
+    <style type="text/css">
+        .button {
+            background-color: #6fba26;
+            padding: 10px;
+            position: relative;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12px;
+            text-decoration: none;
+            color: #fff;
+            background-image: linear-gradient(bottom, rgb(100, 170, 30) 0%, rgb(129, 212, 51) 100%);
+            box-shadow: inset 0px 1px 0px #b2f17f, 0px 6px 0px #3d6f0d;
+            border-radius: 5px;
+        }
+        .button:active {
+            top: 7px;
+            background-image: linear-gradient(bottom, rgb(100, 170, 30) 100%, rgb(129, 212, 51) 0%);
+            box-shadow: inset 0px 1px 0px #b2f17f, inset 0px -1px 0px #3d6f0d;
+            color: #156785;
+            text-shadow: 0px 1px 1px rgba(255, 255, 255, 0.3);
+            background: rgb(44, 160, 202);
+        }
+        .button::before {
+            background-color: #072239;
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding-left: 2px;
+            padding-right: 2px;
+            padding-bottom: 4px;
+            left: -2px;
+            top: 5px;
+            z-index: -1;
+            border-radius: 6px;
+            box-shadow: 0px 1px 0px #fff;
+        }
+        .button:active::before {
+            top: -2px;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <div id="stance" style="height:50px;padding-top: 10px;">
+        <a href="javascript:void(0);" class="button" onclick="stackedbar.show();">Normal</a>
+        <a href="javascript:void(0);" class="button" onclick="stackedbar.show('group');">Group</a>
+    </div>
+    <div id="revenuebar" class="guiRevenuebar" style="width:800px;height:500px"></div>
+</div>
+<script type="text/javascript">
+//    var data=[{year: "2013", STG: 30.893335, SWG: 31.461403, GTS: 111.546080, GBS: 5.165461, IBMtotal: 206.417869 },{year: "2014", STG: 86.747806, SWG: 33.167695, GTS: 102.693616, GBS: 5.855985, IBMtotal: 254.401998 }];
+var data = [{year: "2013", STG: 30.893335, SWG: 31.461403, GTS: 111.546080, GBS: 5.165461, S1:23.87, S2:14.566, S3:89,IBMtotal: 206.417869 }, {year: "2014", STG: 86.747806, SWG: 33.167695, GTS: 102.693616, GBS: 5.855985, S1:31.877, S2:18.888,S3:90,IBMtotal: 254.401998 }];
+//    var data=[{year: "2013", STG: 0, SWG: 0.0, GTS: 0, GBS: 0, SSS: 0, IBMtotal: 0 }, {year: "2014", STG: 0.0, SWG: 0.0, GTS: 0.0, GBS: 0.0, SSS: 0.0, IBMtotal: 0.0 }];
+//    var data=[{"IGF":0.477295,"GBS":0,"GTS":0.188549,"SWG":0,"STG":0.002866,"IBMtotal":0.668822,"year":2009},{"IGF":0.51052,"GBS":0,"GTS":0.276261,"SWG":0,"STG":0.008258,"IBMtotal":0.79504,"year":2010},{"IGF":0.56874,"GBS":0,"GTS":0.414094,"SWG":0,"STG":0.175056,"IBMtotal":1.15789,"year":2011},{"IGF":0.118827,"GBS":0,"GTS":1.120672,"SWG":0,"STG":0.051661,"IBMtotal":1.302086,"year":2014},{"IGF":0.484508,"GBS":0,"GTS":1.059848,"SWG":0,"STG":0,"IBMtotal":1.544356,"year":2012},{"IGF":0.320855,"GBS":0,"GTS":1.55559,"SWG":0,"STG":0,"IBMtotal":1.876445,"year":2013}];
+//var data = [{
+//    year: "2015",
+//    STG: 30.893335,
+//    SWG: 31.461403,
+//    GTS: 111.546080,
+//    GBS: 5.165461,
+//    SSS: 10.34566,
+//    SS1: 10.34566,
+//    SS2: 10.34566,
+//    IBMtotal: 206.417869
+//}];
+    $(function() {
+        var stackedbar = new IBMRevenueBar({
+            container: "#revenuebar",
+            dataStore: data
+        });
+        stackedbar.show();
+        window.stackedbar=stackedbar;
+    });
+
+</script>
+
+</body>
+</html>

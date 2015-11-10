@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../../js/lib/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="../../js/lib/d3.min.js"></script>
+	<script src="../../js/d3StackedBar/d3.core.js" charset="utf-8"></script>
+	<script src="../../js/d3StackedBar/d3.stackedbar.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="../../css/ibmSpend/detaileSpendV2.css">
+	<script src="../../js/ibmSpend/ibmSpendV3.js" charset="utf-8"></script>
+	<script>
+	   var data = [{key: "COMMUNICATIONS", values: [{x: "2013", y: 2958.0 ,ssss:'ss'}, {x: "2014", y: 33588.36 }, {x: "2015", y: 1234.5 }] }, {key: "DEPOT SERVICES", values: [{x: "2013", y:2342.3 }, {x: "2014", y: 23424.2 }, {x: "2015", y: 5322.234 }] }, {key: "ITS/GLOBAL PARTS", values: [{x: "2013", y: 3454.32 }, {x: "2014", y: 33453.0 }, {x: "2015", y: 9754.89 }] }, {key: "LOGISTICS", values: [{x: "2013", y: 2342 }, {x: "2014", y: 6780.8 }, {x: "2015", y: 2341.78 }] }];
+	   
+	   $(function() {
+	      ibmSpendChart.show(data);
+	   })
+
+	</script>
+</head>
+<body>
+	<div>
+		<div id="stance" style="height:50px"></div>
+		<div id="stackedbar" class="guiStackedbar guiChart" style="width:800px;height:500px"></div>
+	</div>
+</body>
+</html>
