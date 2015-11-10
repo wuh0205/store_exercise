@@ -1,0 +1,13 @@
+{
+  "name": "bootstrapJS",
+  "_cacheHeaders": {
+    "ETag": "\"63fabbb65554ac6d91f95056797c7c2c9a79ece9\"",
+    "Content-Length": "63637",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:63fabbb65",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/jcbrand/bootstrap/7d96a5f60d26c67b5348b270a775518b96a702c8/dist/js/bootstrap.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/jcbrand/bootstrap/7d96a5f60d26c67b5348b270a775518b96a702c8/dist/js/bootstrap.js"
+}

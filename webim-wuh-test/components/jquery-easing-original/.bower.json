@@ -1,0 +1,13 @@
+{
+  "name": "jquery-easing-original",
+  "_cacheHeaders": {
+    "ETag": "\"31eff5f56b4001713e24cddcf327756fa0351609\"",
+    "Content-Length": "8360",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:31eff5f56",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/jcbrand/jquery.easing/7de3458b1845a72c1f407debf6b223c8446396bf/jquery.easing.1.3.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/jcbrand/jquery.easing/7de3458b1845a72c1f407debf6b223c8446396bf/jquery.easing.1.3.js"
+}

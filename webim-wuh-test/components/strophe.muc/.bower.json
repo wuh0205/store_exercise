@@ -1,0 +1,13 @@
+{
+  "name": "strophe.muc",
+  "_cacheHeaders": {
+    "ETag": "\"8421618d2b393a4aed447c0664c6846afe8eab18\"",
+    "Content-Length": "37707",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:8421618d2",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/strophe/strophejs-plugins/master/muc/strophe.muc.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/strophe/strophejs-plugins/master/muc/strophe.muc.js"
+}

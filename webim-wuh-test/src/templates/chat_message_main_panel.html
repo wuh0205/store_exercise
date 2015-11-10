@@ -1,0 +1,57 @@
+<div class="chatTitle">
+	<div class="chatNameWrap">
+		<p id="messagePanelTitle" class="chatName">{{nickName}}</p>
+	</div>
+</div>
+<div class="chatScorll" style="height: 522px; overflow-y: hidden; position: relative;">
+	<div id="chat_chatmsglist" class="chatContent" style="top: 0px;height:522px;overflow:auto; position: relative;">
+		<!-- <div class="chatItem me">
+			<div class="time"><span class="timeBg left"></span>13:00<span class="timeBg right"></span></div>
+			<div class="chatItemContent">
+				<img class="avatar" src="./images/avatar_default.png" title="zhengyan"/>
+				<div class="cloud cloudText">
+					<div class="cloudPannel">
+						<div class="sendStatus"></div>
+						<div class="cloudBody">
+							<div class="cloudContent">
+								<pre style="white-space:pre-wrap;background-color : transparent ">自己发送的消息1,   123</pre>
+							</div>
+							<div class="cloudArrow"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		
+		<!-- <div class="chatItem you">
+			<div class="chatItemContent">
+				<img class="avatar" src="./images/avatar_default.png" title="zhengyan123"/>
+				<div class="cloud cloudText">
+					<div class="cloudPannel">
+						<div class="sendStatus"></div>
+						<div class="cloudBody">
+							<div class="cloudContent">
+								<pre style="white-space:pre-wrap;background-color : transparent">其他人回复</pre>
+							</div>
+						</div>
+						<div class="cloudArrow"></div>
+					</div>
+				</div>
+			</div>
+			
+		</div> -->
+	</div>
+</div>
+<div id="chat_editor" class="chatOperator lightBorder">
+	<div class="inputArea">
+		<div class="attach">
+			<a id="sendEmojiIcon" class="func expression" title="选择表情" href="#"></a>
+			<a id="screenSnapIcon" class="func screensnap" title="发送截屏" href="#"></a>
+			<a id="uploadFileContainer" class="func file" title="文件图片" href="#" style="position:relative;display:block;margin:0;"></a>
+			
+		</div>
+		<textarea id="textInput" class="chatInput lightBorder" type="text"></textarea>
+		<a id="chatSend" class="chatSend" href="#" onclick="webim.clickSend()"><b>发送</b></a>
+		<div class="clr"></div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "name": "strophejs-plugins",
+  "ignore": [
+    ".gitignore",
+    ".jshintignore",
+    ".jshintrc",
+    "bower.json",
+    "gruntfile.js",
+    "package.json",
+    "README.markdown"
+  ],
+  "dependencies": {
+    "strophe": ">=1.1.0"
+  },
+  "homepage": "https://github.com/strophe/strophejs-plugins",
+  "_release": "0f5bbdbcee",
+  "_resolution": {
+    "type": "branch",
+    "branch": "conversejs",
+    "commit": "0f5bbdbcee28625ffdfc0fb1576e5c135c7d8fc6"
+  },
+  "_source": "https://github.com/strophe/strophejs-plugins.git",
+  "_target": "conversejs",
+  "_originalSource": "https://github.com/strophe/strophejs-plugins.git"
+}

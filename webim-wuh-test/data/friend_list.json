@@ -1,0 +1,27 @@
+{
+	"friendList": [{
+		"userId":"zhengyan01",
+		"nickName": "郑岩",
+		"time": "0:00",
+		"desc":"",
+		"imgSrc":"./images/avatar_default.png"
+	}, {
+		"userId":"wuhao01",
+		"nickName": "吴昊",
+		"time": "0:00",
+		"desc":"",
+		"imgSrc":"./images/avatar_default.png"
+	}, {
+		"userId":"yangjianli01",
+		"nickName": "杨建林",
+		"time": "0:00",
+		"desc":"",
+		"imgSrc":"./images/avatar_default.png"
+	}, {
+		"userId":"shanchangxu",
+		"nickName": "单长旭",
+		"time": "0:00",
+		"desc":"",
+		"imgSrc":"./images/avatar_default.png"
+	}]
+}

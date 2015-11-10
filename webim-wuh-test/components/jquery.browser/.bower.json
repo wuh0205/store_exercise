@@ -1,0 +1,13 @@
+{
+  "name": "jquery.browser",
+  "_cacheHeaders": {
+    "ETag": "\"b22317b07e2170aef7580285793ead6f155f19d4\"",
+    "Content-Length": "3203",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:b22317b07",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/jcbrand/jquery-browser-plugin/ae5e88aa7a26f583e8865c3961ba857918c4c9c1/dist/jquery.browser.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/jcbrand/jquery-browser-plugin/ae5e88aa7a26f583e8865c3961ba857918c4c9c1/dist/jquery.browser.js"
+}
