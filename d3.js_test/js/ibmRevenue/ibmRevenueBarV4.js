@@ -312,16 +312,13 @@ IBMRevenueBar.prototype.destroy=function(){
 };
 
 IBMRevenueBar.prototype.thousandSeparator=function(num) {
-    num = num.toFixed(3) + "";
-    var re = /(-?\d+)(\d{3})/;
+    var d=arguments[1]||3,
+        re = /(-?\d+)(\d{3})/;
+    num = num.toFixed(d) + "";
     while (re.test(num)) {
         num = num.replace(re, "$1,$2");
     }
-    var pointIndex = num.lastIndexOf('.');
-    if (num.substring(pointIndex + 1) == '0') {
-        return num.substring(0, pointIndex);
-    }
-    return num;
+    return parseFloat(num.replace(/[0]+$/g, ""));
 };
 /*
  *  Rect restore has been clicked
