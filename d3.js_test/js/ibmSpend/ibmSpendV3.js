@@ -1,28 +1,29 @@
 var ibmSpendChart = {
-	tipData:null,
-	stackedbar:null,
-	charDivName:'stackedbar',
-	data:null,
+	tipData: null,
+	stackedbar: null,
+	charDivName: 'stackedbar',
+	data: null,
 	show: function(data) {
-		this.data=data;
-		this.tipData=this.getTipData(data);
+		this.data = data;
+		this.tipData = this.getTipData(data);
 		this.initD3StackedBar();
 		this.stackedbar.show();
 	},
 	initD3StackedBar: function() {
-		var that=this;
+		var that = this;
 		this.stackedbar = new D3StackedBar({
-			container: '#'+this.charDivName,
+			container: '#' + this.charDivName,
 			data: that.data,
 			margin: {top: 20, left: 150, bottom: 50, right: 20},
 			displayTable: true,
-			yFormat:that.commafy,
-			verticalText:'$K',
+			yFormat: that.commafy,
+			verticalText: '$K',
 			tipEventType: 'click', //mouse_over_out, click, click_timeout
 			tooltipText: function(d, element) {
-				var _tipData = that.tipData,obj = _tipData[d.x],
-				currentKey=$(element).parent('g').attr('original-key');
-				return that.packageHtml(obj,currentKey);
+				var _tipData = that.tipData,
+					obj = _tipData[d.x],
+					currentKey = $(element).parent('g').attr('original-key');
+				return that.packageHtml(obj, currentKey);
 			}
 		});
 	},
@@ -58,40 +59,38 @@ var ibmSpendChart = {
 			yearObj = tipData[i];
 			for (var j in yearObj) {
 				total += yearObj[j];
-				yearObj[j]=this.commafy(yearObj[j]);
+				yearObj[j] = this.commafy(yearObj[j]);
 			};
 			yearObj['IBM Total'] = this.commafy(total);
 		};
 		return tipData;
 	},
-	packageHtml: function(tipSubObj,currentKey) {
-		var contentHtml = '',template,name,money,rowStyle;
+	packageHtml: function(tipSubObj, currentKey) {
+		var contentHtml = '',
+			template, name, money, rowStyle;
 		for (var i in tipSubObj) {
 			name = i;
 			money = tipSubObj[i];
-			rowStyle='row';
-			if(name==currentKey){
-				rowStyle='row selected';
+			rowStyle = 'row';
+			if (name == currentKey) {
+				rowStyle = 'row selected';
 			}
-			if(name=='IBM Total'){
-				name='<b>'+name+'</b>';
+			if (name == 'IBM Total') {
+				name = '<b>' + name + '</b>';
 			}
-			template = "<span class=\""+rowStyle+"\"><span class=\"category\">"+name+"</span><span class=\"money\"><b>"+money+"</b> $K</span></span>";
+			template = "<span class=\"" + rowStyle + "\"><span class=\"category\">" + name + "</span><span class=\"money\"><b>" + money + "</b> $K</span></span>";
 			contentHtml += template;
 		}
-		return "<div class=\"atuoScroll\"><span class=\"table\">"+contentHtml+"</span></div>";
+		return "<div class=\"atuoScroll\"><span class=\"table\">" + contentHtml + "</span></div>";
 	},
 	commafy: function(num) {
-		num = num.toFixed(1) + "";
-		var re = /(-?\d+)(\d{3})/;
+		var d = arguments[1] || 1,
+			re = /(-?\d+)(\d{3})/;
+		num = num.toFixed(d) + "";
 		while (re.test(num)) {
 			num = num.replace(re, "$1,$2");
 		}
-		var pointIndex = num.lastIndexOf('.');
-		if (num.substring(pointIndex + 1) == '0') {
-			return num.substring(0, pointIndex);
-		}
-		return num;
+		return parseFloat(num.replace(/[0]+$/g, ""));
 	}
 
 };
