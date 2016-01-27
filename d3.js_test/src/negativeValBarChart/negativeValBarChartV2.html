@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Bar Chart with Negative Values</title>
+<style>
+
+.bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<body>
+<script type="text/javascript" src="../../js/lib/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="../../js/lib/d3.min.js"></script>
+<script>
+
+ var data=[{"name":"A","value":-15},{"name":"B","value":-20},{"name":"C","value":-22},{"name":"D","value":-18},{"name":"E","value":2},{"name":"F","value":6},{"name":"G","value":-26},{"name":"H","value":-18}];
+
+var margin = {top: 30, right: 10, bottom: 10, left: 10},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var x = d3.scale.linear()
+    .range([0, width]);
+
+var y = d3.scale.ordinal()
+    .rangeRoundBands([height,0], .2);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+
+  x.domain(data.map(function(d) { return d.name; }));
+  y.domain(d3.extent(data, function(d) { return d.value; }));
+    svg.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+      svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+// d3.tsv("data.tsv", type, function(error, data) {
+ 
+
+
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })
+      // .attr("x", function(d) { return x(Math.min(0, d.value)); })
+      .attr("x", function(d) { return x(d.name); })
+      // .attr("y", function(d) { return y(d.name); })
+      .attr("y", function(d) {return y(Math.min(0, d.value)); })
+      // .attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })
+      // .attr("height", y.rangeBand());
+      .attr("width", function(d) { return x.rangeBand(); })
+      .attr("height", function(d) { return Math.abs(y(d.value) - y(0)); });
+
+  
+
+  // svg.append("g")
+  //     .attr("class", "y axis")
+  //   .append("line")
+  //     .attr("x1", x(0))
+  //     .attr("x2", x(0))
+  //     .attr("y2", height);
+// });
+
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+
+</script>

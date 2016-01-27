@@ -10,7 +10,7 @@ function RectTipBox(setting) {
     var lineMaxLength=36;
     var gTipId=setting['tipId']?setting['tipId']:'tip';
     var svg=setting['svg'];
-    var rect_translate=setting['rectTranslate'];
+    var rect_translate=setting['basicTranslate'];
     var xMidline=setting['xMidline']?setting['xMidline']:0;
     var companyNameArr =setting['companyNameArr']?setting['companyNameArr']:[];
     var tipDetailStore =setting['tipDetailStore']?setting['tipDetailStore']:[];

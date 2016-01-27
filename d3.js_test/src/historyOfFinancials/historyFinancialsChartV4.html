@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>History Financial</title>
+    <script type="text/javascript" src="../../js/lib/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="../../js/lib/d3.min.js"></script>
+    <script type="text/javascript" src="../../js/barAndLineChart/barAndLineChartV2.js"></script>
+    <style>
+        .hisFinancialChar .bar {
+            fill: rgb(127, 148, 182);
+            stroke: rgb(127, 148, 182);
+            stroke-width: 1px;
+            opacity: 1;
+            fill-opacity: 0.8;
+        }
+
+        .hisFinancialChar .barHover{
+            fill: rgb(127, 148, 182);
+            stroke: rgb(127, 148, 182);
+            stroke-width: 1px;
+            opacity: 1;
+            fill-opacity: 0.4;
+        }
+
+        .hisFinancialChar .dot{
+            fill: rgb(0, 63, 105);
+            stroke: black;
+            stroke-width: 2px;
+        }
+
+        .hisFinancialChar .dotHover{
+            fill: rgb(0, 100, 157);
+            stroke: black;
+            stroke-width: 2px;
+        }
+
+        .hisFinancialChar .linePath{
+            stroke: rgb(0, 25, 52);
+            stroke-width: 4px;
+            fill: none;
+        }
+
+        .hisFinancialChar .axis {
+            font: 10px sans-serif;
+        }
+
+        .hisFinancialChar .tick text{
+            color: #231f20;
+            font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+            text-anchor:middle;
+        }
+
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: rgb(0, 0, 0);
+            shape-rendering: crispEdges;
+        }
+
+        .hisFinancialChar .tooltip{
+            z-index: 10000;
+            width: auto;
+            height: auto;
+            border: 1px solid silver;
+            padding: 10px;
+            min-width: 250px;
+            min-height: 10px;
+            display: block;
+            left: 132px;
+            position: absolute;
+            bottom: 39px;
+            background: rgba(255, 255, 255, 0.85098);
+        }
+
+        .hisFinancialChar{
+            position: relative;
+        }
+
+    </style>
+    <script>
+        $(function(){
+            var setting={
+                container:"#historyFinancialChart",
+                tipTitle:"Cisco Systems, Inc.",
+                tipContent:"SG&A to Revenue (%)",
+                tipDataType:"x",
+                data:[{"x": "2013", "y": 50,"yDot":45},{"x": "2014", "y": -10,"yDot":4},{"x": "2015", "y": -10,"yDot":56}]
+            };
+
+            var barAndLineChar=new BarAndLineChart(setting);
+            barAndLineChar.render();
+        });
+    </script>
+
+</head>
+<body>
+<div id="historyFinancialChart" class="hisFinancialChar" style="width:500px;height:300px"></div>
+</body>
+</html>

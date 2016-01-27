@@ -90,7 +90,7 @@ var ibmSpendChart = {
 		while (re.test(num)) {
 			num = num.replace(re, "$1,$2");
 		}
-		return parseFloat(num.replace(/[0]+$/g, ""));
+		return num.replace(/[0]+$|[.][0]+$/g, "");
 	}
 
 };
