@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bubbleDemo V4</title>
+    <script type="text/javascript" src="..\..\js\lib\d3.min.js"></script>
+    <script type="text/javascript" src="..\..\js\lib\jquery.js"></script>
+    <script type="text/javascript" src="../../js/bubbleChart/bubbleChartV1.js"></script>
+    <style>
+        .axis path, .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            font-family: sans-serif;
+            font-size: 11px;
+            font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+        }
+
+        .tipText {
+            font: 400 1em "Helvetica Neue Roman for IBM", "HelvNeue Roman for IBM", "Helvetica Neue Roman", "HelvNeue Roman", "Helvetica Neue", HelvNeue, Helvetica, Arial, Sans-serif;
+        }
+
+        .tipRect {
+            fill: rgba(255, 255, 255, 0.85098);
+            stroke-width: 1px;
+            stroke: silver;
+        }
+
+        .singleCircle {
+            fill: rgb(40, 174, 229);
+            stroke: rgb(17, 138, 193);
+            stroke-width: 2px;
+            fill-opacity: 1;
+        }
+
+        .singleCircleHover {
+            fill: rgb(130, 208, 246);
+            stroke: rgb(17, 138, 193);
+            stroke-width: 3px;
+            fill-opacity: 0.6;
+        }
+
+        .selectedCircle {
+            fill: rgb(254, 184, 19);
+            stroke: rgb(221, 115, 28);
+            stroke-width: 3px;
+            fill-opacity: 1;
+        }
+
+        .selectedCircleHover {
+            fill: rgb(130, 208, 246);
+            stroke: rgb(221, 115, 28);
+            stroke-width: 3px;
+            fill-opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div id="reportBubbleChartContainer" style="width:800px;height:500px"></div>
+<script>
+    var dataset = [];
+    var boxTitleArr = ['Digital China Holdings Limited', 'Anixter International Inc.', 'Best Buy Europe Distributions Limited', 'Daiwabo Holdings Co., Ltd.', 'VST Holdings Ltd.', 'CDW Corporation', 'Synnex Technology International Corp.','Test Tip TestTest Tip Test Tip TestTest TipTip Test Tip'];
+    var boxSizeArr = ['8,818', '6,446', '5,298', '6,260', '5,405', '12,075', '10,498','1,11111'];
+//    for (var i = 0; i < 10; i++) {
+//        dataset.push({
+//            x: Math.random() * 100,
+//            y: Math.random() * 100,
+//            boxTitle: boxTitleArr[i] ? boxTitleArr[i] : 'Test Test',
+//            size: boxSizeArr[i] ? boxSizeArr[i] : '11,111',
+//            r:30
+//        });
+//    }
+//    var dataset=JSON.parse("[{\"companyId\":781,\"boxTitle\":\"Cisco Systems, Inc.\",\"score\":33,\"size\":\"47,142\",\"x\":0.8333,\"y\":1,\"chooseFlg\":true,\"r\":37},{\"companyId\":1312,\"boxTitle\":\"QUALCOMM Incorporated\",\"score\":30,\"size\":\"26,487\",\"x\":1,\"y\":0.5,\"chooseFlg\":false,\"r\":23.855670103092784},{\"companyId\":795,\"boxTitle\":\"Huawei Investment & Holding Co., Ltd.\",\"score\":21,\"size\":\"46,468\",\"x\":0.5,\"y\":1,\"chooseFlg\":false,\"r\":36.57133589601629},{\"companyId\":2090,\"boxTitle\":\"Nokia Networks\",\"score\":21,\"size\":\"15,385\",\"x\":0.6667,\"y\":0.3333,\"chooseFlg\":false,\"r\":16.790792273768613},{\"companyId\":1219,\"boxTitle\":\"Ericsson\",\"score\":20,\"size\":\"29,138\",\"x\":0.3333,\"y\":0.6667,\"chooseFlg\":false,\"r\":25.5424877745959},{\"companyId\":2034,\"boxTitle\":\"Alcatel-Lucent\",\"score\":13,\"size\":\"15,951\",\"x\":0.3333,\"y\":0.1667,\"chooseFlg\":false,\"r\":17.15088359042892}]");
+    var dataset=JSON.parse("[{\"companyId\":781,\"boxTitle\":\"Cisco Systems, Inc.\",\"score\":33,\"size\":\"47,142\",\"x\":0.8333,\"y\":1,\"chooseFlg\":true,\"r\":121212},{\"companyId\":1312,\"boxTitle\":\"QUALCOMM Incorporated\",\"score\":30,\"size\":\"26,487\",\"x\":1,\"y\":0.5,\"chooseFlg\":false,\"r\":232323},{\"companyId\":795,\"boxTitle\":\"Huawei Investment & Holding Co., Ltd.\",\"score\":21,\"size\":\"46,468\",\"x\":0.5,\"y\":1,\"chooseFlg\":false,\"r\":343434},{\"companyId\":2090,\"boxTitle\":\"Nokia Networks\",\"score\":21,\"size\":\"15,385\",\"x\":0.6667,\"y\":0.3333,\"chooseFlg\":false,\"r\":434343},{\"companyId\":1219,\"boxTitle\":\"Ericsson\",\"score\":20,\"size\":\"29,138\",\"x\":0.3333,\"y\":0.6667,\"chooseFlg\":false,\"r\":12345},{\"companyId\":2034,\"boxTitle\":\"Alcatel-Lucent\",\"score\":13,\"size\":\"15,951\",\"x\":0.3333,\"y\":0.1667,\"chooseFlg\":false,\"r\":565656}]");
+    var bubble=new BubbleChart({container:"#reportBubbleChartContainer"});
+    bubble.renderAxes();
+    bubble.drawCircle(dataset)
+</script>
+</body>
+</html>

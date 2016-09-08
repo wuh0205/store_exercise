@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../../js/lib/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="../../js/lib/d3.min.js"></script>
+	<script src="../../js/d3StackedBar/d3.core.js" charset="utf-8"></script>
+	<script src="../../js/d3StackedBar/d3.stackedbar.js" charset="utf-8"></script>
+	<link rel="stylesheet" href="../../css/ibmSpend/detaileSpendV2.css">
+    <link rel="stylesheet" href="../../css/stackedbar/d3.stackedbar.css">
+	<script>
+	   var dataset=[{"key":"Mergers & Acquisitions","values":[{"x":"M3/2016","y":11,"size":11,"y0":11},{"x":"M4/2016","y":2,"size":2,"y0":2}]},{"key":"Strategic Alliances","values":[{"x":"M3/2016","y":4,"size":4,"y0":15},{"x":"M4/2016","y":12,"size":12,"y0":14}]},{"key":"Business Expansion","values":[{"x":"M3/2016","y":29,"size":29,"y0":44},{"x":"M4/2016","y":9,"size":9,"y0":23}]},{"key":"Internal Restructuring","values":[{"x":"M3/2016","y":1,"size":1,"y0":45},{"x":"M4/2016","y":2,"size":2,"y0":25}]},{"key":"Management Climate","values":[{"x":"M3/2016","y":2,"size":2,"y0":47},{"x":"M4/2016","y":2,"size":2,"y0":27}]},{"key":"Corporate Communications","values":[{"x":"M3/2016","y":2,"size":2,"y0":49},{"x":"M4/2016","y":3,"size":3,"y0":30}]},{"key":"Other Corporate","values":[{"x":"M3/2016","y":0},{"x":"M4/2016","y":1}]}];
+	   var colorset=["rgb(166,206,227)", "rgb(31,120,180)", "rgb(178,223,138)", "rgb(51,160,44)", "rgb(251,154,153)", "rgb(227,26,28)", "rgb(253,191,111)","rgb(177,89,40)"];
+	   
+	   $(function() {
+
+	      var stackedbar = new D3StackedBar({
+                container: "#sIChartStackedbar",
+                data: dataset,
+                displayTable: false,
+                showLegend:false,
+                colors:colorset,
+                margin: {top: 30, left: 70, bottom: 30, right: 45},
+                tipEventType:'click',
+                tooltipText:function(d, element) {
+                    return "<span style=\"font-size:18px;\">"+ d.y+"</span>"+ " in "+$(element).parent().attr('original-key')+"<br><span style=\"font-size:11px;\">"+d.x+"</span>";
+                },
+                tooltipOnClick: function (d, element, base) {
+                    var tickLast2_y=$(base.options.container).find('.y.axis').find('g:nth-last-child(2)').attr('transform').match(/translate\((.*),(.*)\)/)[2],
+                        rect_y=element.getAttribute('y'),
+                        //rectHeight=element.getAttribute('height'),
+                        arrowHeight=12,
+                        offset=4;
+                    var xPosition = parseInt($(element).attr("x")) + parseInt($(element).attr("width"))/2-base.tooltipWidth/2+base.options.margin.left,
+                        yPosition = base.y.range()[0]-parseInt($(element).attr("y"))+base.options.margin.bottom+5;
+                    var $tipDom=$(base.options.container+" .tooltip");
+                    $tipDom.css("left", xPosition + "px")
+                        .css("bottom", yPosition + "px")
+                        .html(base.options.tooltipText(d, element));
+                    if(+rect_y<+tickLast2_y){
+                        yPosition=yPosition-$tipDom.outerHeight()-arrowHeight-offset;
+                        $tipDom.css("bottom", yPosition + "px");
+                        $tipDom.addClass('arrowTop');
+                    }else{
+                        $tipDom.removeClass('arrowTop');
+                    }
+                    $tipDom.show();
+                }
+            });
+            stackedbar.show();
+
+
+
+	   })
+
+	</script>
+</head>
+<body>
+	<div>
+		<div id="stance" style="height:50px"></div>
+		<div id="sIChartStackedbar" class="stackedbar" style="width:800px;height: 280px !important;"></div>
+	</div>
+</body>
+</html>

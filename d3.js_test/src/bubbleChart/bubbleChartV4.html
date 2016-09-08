@@ -164,7 +164,7 @@
     });
 
     // 散点
-    var circleG=svg.append("g").attr("transform", "translate(0,0)");
+    var circleG=svg.append("g").attr("transform", "translate(0,0)").attr('class','circle-g');
     var pointCircles = circleG.selectAll(".singleCircle")
             .data(dataset)
             .enter()
@@ -396,7 +396,7 @@
          showContentBox(this);
      });
 
-     svg.on('click', function () {
+     d3.select("#"+containsId).on('click', function () {
          if (d3.event.srcElement.nodeName == 'circle') {
              return;
          }
